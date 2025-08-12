@@ -1,0 +1,13 @@
+{
+  "name": "road-test-dashboard",
+  "version": "1.0.0",
+  "description": "路测报告管理系统",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8080",
+    "build": "echo 'Static site, no build needed'"
+  },
+  "keywords": ["dashboard", "testing", "reports"],
+  "author": "Your Name",
+  "license": "MIT"
+}
