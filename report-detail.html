@@ -222,20 +222,18 @@
             <!-- 泊车异常分析 -->
             <div class="metric-category">
                 <h3>泊车异常分析</h3>
-                <div class="anomaly-analysis">
+                <div class="anomaly-analysis-simple">
                     <div class="chart-container">
                         <canvas id="parkingAnomalyChart"></canvas>
                         <div class="chart-title">异常类型分布</div>
                     </div>
-                    <div class="anomaly-heatmap">
-                        <div class="heatmap-title">异常热力图</div>
-                        <div class="heatmap-grid" id="anomalyHeatmap">
-                            <!-- 热力图将通过 JavaScript 生成 -->
+                    <div class="anomaly-summary">
+                        <h4>异常统计</h4>
+                        <div class="anomaly-list" id="anomalyList">
+                            <!-- 异常列表将通过 JavaScript 生成 -->
                         </div>
-                        <div class="heatmap-legend">
-                            <span class="legend-item low">低风险 (0-2%)</span>
-                            <span class="legend-item medium">中风险 (2-4%)</span>
-                            <span class="legend-item high">高风险 (>4%)</span>
+                        <div class="anomaly-total">
+                            <strong>总异常率: <span id="totalAnomalyRate">2.4%</span></strong>
                         </div>
                     </div>
                 </div>
@@ -303,6 +301,7 @@
         </section>
     </div>
 
+    <script src="score-calculation.js"></script>
     <script src="report-detail.js"></script>
 </body>
 </html>

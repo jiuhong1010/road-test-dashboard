@@ -32,7 +32,8 @@ const anomalyData = [
 document.addEventListener('DOMContentLoaded', function() {
     initReportDetail();
     initCharts();
-    generateAnomalyHeatmap();
+    generateAnomalyList();
+    calculateScores();
 });
 
 // 初始化报告详情
@@ -330,17 +331,23 @@ function initParkingAnomalyChart() {
     });
 }
 
-// 生成异常热力图
-function generateAnomalyHeatmap() {
-    const heatmapContainer = document.getElementById('anomalyHeatmap');
+// 生成异常列表
+function generateAnomalyList() {
+    const anomalyListContainer = document.getElementById('anomalyList');
     
     anomalyData.forEach(item => {
-        const cell = document.createElement('div');
-        cell.className = `heatmap-cell ${item.level}`;
-        cell.textContent = `${item.name}\n${item.value}%`;
-        cell.title = `${item.name}: ${item.value}%`;
-        heatmapContainer.appendChild(cell);
+        const anomalyItem = document.createElement('div');
+        anomalyItem.className = `anomaly-item ${item.level}`;
+        anomalyItem.innerHTML = `
+            <span>${item.name}</span>
+            <span class="anomaly-value ${item.level}">${item.value}%</span>
+        `;
+        anomalyListContainer.appendChild(anomalyItem);
     });
+    
+    // 计算总异常率
+    const totalRate = (anomalyData.reduce((sum, item) => sum + item.value, 0) / anomalyData.length).toFixed(1);
+    document.getElementById('totalAnomalyRate').textContent = `${totalRate}%`;
 }
 
 // 返回列表页面
