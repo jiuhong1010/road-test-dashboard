@@ -198,6 +198,18 @@
                                 </select>
                             </div>
                             <div class="form-item">
+                                <label>测试任务</label>
+                                <select id="modalTaskFilter">
+                                    <option value="">请选择测试任务</option>
+                                    <option value="城市道路测试">城市道路测试</option>
+                                    <option value="高速公路测试">高速公路测试</option>
+                                    <option value="紧急制动测试">紧急制动测试</option>
+                                    <option value="夜间道路测试">夜间道路测试</option>
+                                    <option value="复杂路况测试">复杂路况测试</option>
+                                    <option value="泊车功能测试">泊车功能测试</option>
+                                </select>
+                            </div>
+                            <div class="form-item">
                                 <label>车牌号</label>
                                 <div class="multi-select-dropdown" id="modalVehicleDropdown">
                                     <div class="multi-select-button" onclick="toggleDropdown('modalVehicleDropdown')">
@@ -218,11 +230,11 @@
                                 </div>
                             </div>
                             <div class="form-item">
-                                <label>日期范围</label>
+                                <label>日期时间范围</label>
                                 <div class="date-range">
-                                    <input type="date" id="startDate" placeholder="YYYY-MM-DD">
+                                    <input type="datetime-local" id="startDateTime" placeholder="开始时间">
                                     <span>至</span>
-                                    <input type="date" id="endDate" placeholder="YYYY-MM-DD">
+                                    <input type="datetime-local" id="endDateTime" placeholder="结束时间">
                                 </div>
                             </div>
                             <div class="form-item">

@@ -384,12 +384,22 @@ document.addEventListener('click', function(event) {
 // 打开新增报告弹窗
 function openNewReportModal() {
     document.getElementById('newReportModal').style.display = 'block';
-    // 设置默认日期（只有日期，不包含时间）
+    // 设置默认日期时间
     const now = new Date();
     const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     
-    document.getElementById('startDate').value = oneWeekAgo.toISOString().slice(0, 10);
-    document.getElementById('endDate').value = now.toISOString().slice(0, 10);
+    // 格式化为 datetime-local 格式 (YYYY-MM-DDTHH:MM)
+    const formatDateTime = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    };
+    
+    document.getElementById('startDateTime').value = formatDateTime(oneWeekAgo);
+    document.getElementById('endDateTime').value = formatDateTime(now);
 }
 
 // 关闭新增报告弹窗
@@ -416,15 +426,20 @@ function confirmNewReport() {
     const formData = {
         versions: getMultiSelectValues('modalVersionDropdown'),
         project: document.getElementById('modalProjectFilter').value,
+        taskName: document.getElementById('modalTaskFilter').value,
         vehicles: getMultiSelectValues('modalVehicleDropdown'),
-        startDate: document.getElementById('startDate').value,
-        endDate: document.getElementById('endDate').value,
+        startDateTime: document.getElementById('startDateTime').value,
+        endDateTime: document.getElementById('endDateTime').value,
         testers: getMultiSelectValues('modalTesterDropdown')
     };
 
     // 验证表单
     if (!formData.project) {
         alert('请选择项目');
+        return;
+    }
+    if (!formData.taskName) {
+        alert('请选择测试任务');
         return;
     }
     if (formData.versions.length === 0) {
@@ -435,8 +450,8 @@ function confirmNewReport() {
         alert('请选择至少一个车牌号');
         return;
     }
-    if (!formData.startDate || !formData.endDate) {
-        alert('请选择日期范围');
+    if (!formData.startDateTime || !formData.endDateTime) {
+        alert('请选择日期时间范围');
         return;
     }
     if (formData.testers.length === 0) {
@@ -444,12 +459,18 @@ function confirmNewReport() {
         return;
     }
 
+    // 格式化日期时间显示
+    const formatDisplayDateTime = (dateTimeStr) => {
+        const date = new Date(dateTimeStr);
+        return date.toLocaleString('zh-CN');
+    };
+
     // 模拟创建报告
     const newReport = {
         id: 'RPT' + String(mockReports.length + 1).padStart(3, '0'),
         project: formData.project,
-        taskName: '新建测试任务',
-        dataRange: `${formData.startDate} 至 ${formData.endDate}`,
+        taskName: formData.taskName,
+        dataRange: `${formatDisplayDateTime(formData.startDateTime)} 至 ${formatDisplayDateTime(formData.endDateTime)}`,
         version: formData.versions.join(', '),
         vehicle: formData.vehicles.join(', '),
         route: '待分配',
