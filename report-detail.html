@@ -77,7 +77,7 @@
                         <span class="metric-value">1.5次/百公里</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">弯道通行</span>
+                        <span class="metric-label">弯道通行成功率</span>
                         <span class="metric-value">97.8%</span>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                 <h3>绕行</h3>
                 <div class="metric-grid">
                     <div class="metric-item">
-                        <span class="metric-label">绕行避障</span>
+                        <span class="metric-label">绕行避障成功率</span>
                         <span class="metric-value">95.6%</span>
                     </div>
                 </div>
@@ -107,11 +107,11 @@
                         <span class="metric-value">0.8次/百公里</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">巡航跟停</span>
+                        <span class="metric-label">巡航跟停成功率</span>
                         <span class="metric-value">98.5%</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">静止车刹停</span>
+                        <span class="metric-label">静止车刹停成功率</span>
                         <span class="metric-value">97.2%</span>
                     </div>
                 </div>
@@ -122,15 +122,15 @@
                 <h3>匝道互通</h3>
                 <div class="metric-grid">
                     <div class="metric-item">
-                        <span class="metric-label">汇入主路</span>
+                        <span class="metric-label">汇入主路成功率</span>
                         <span class="metric-value">94.8%</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">匝道内行驶</span>
+                        <span class="metric-label">匝道内行驶成功率</span>
                         <span class="metric-value">96.3%</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">驶入匝道</span>
+                        <span class="metric-label">驶入匝道成功率</span>
                         <span class="metric-value">95.7%</span>
                     </div>
                 </div>
@@ -141,15 +141,15 @@
                 <h3>路口相关</h3>
                 <div class="metric-grid">
                     <div class="metric-item">
-                        <span class="metric-label">路口直行</span>
+                        <span class="metric-label">路口直行成功率</span>
                         <span class="metric-value">96.9%</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">红绿灯识别（GLC）</span>
+                        <span class="metric-label">红绿灯识别成功率（GLC）</span>
                         <span class="metric-value">98.7%</span>
                     </div>
                     <div class="metric-item">
-                        <span class="metric-label">M2N</span>
+                        <span class="metric-label">M2N成功率</span>
                         <span class="metric-value">93.4%</span>
                     </div>
                 </div>
@@ -178,50 +178,8 @@
         <!-- 自动泊车指标 -->
         <div class="section">
             <h2>自动泊车指标</h2>
-            
-            <!-- 垂直车位 -->
-            <div class="metric-group">
-                <h3>垂直车位</h3>
-                <div class="metric-grid">
-                    <div class="metric-item">
-                        <span class="metric-label">泊入</span>
-                        <span class="metric-value">96.8%</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">泊出</span>
-                        <span class="metric-value">97.2%</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 水平车位 -->
-            <div class="metric-group">
-                <h3>水平车位</h3>
-                <div class="metric-grid">
-                    <div class="metric-item">
-                        <span class="metric-label">泊入</span>
-                        <span class="metric-value">94.5%</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">泊出</span>
-                        <span class="metric-value">95.8%</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 斜列车位 -->
-            <div class="metric-group">
-                <h3>斜列车位</h3>
-                <div class="metric-grid">
-                    <div class="metric-item">
-                        <span class="metric-label">泊入</span>
-                        <span class="metric-value">88.3%</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">泊出</span>
-                        <span class="metric-value">92.1%</span>
-                    </div>
-                </div>
+            <div class="chart-container">
+                <canvas id="parkingSuccessChart"></canvas>
             </div>
         </div>
 

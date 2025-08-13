@@ -32,8 +32,64 @@ const parkingAnomalyData = [
 document.addEventListener('DOMContentLoaded', function() {
     initReportDetail();
     initTakeoverChart();
+    initParkingSuccessChart();
     initParkingAnomalyChart();
 });
+
+// 初始化自动泊车成功率图表
+function initParkingSuccessChart() {
+    const ctx = document.getElementById('parkingSuccessChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['垂直泊入', '垂直泊出', '水平泊入', '水平泊出', '斜列泊入', '斜列泊出'],
+            datasets: [{
+                label: '成功率 (%)',
+                data: [96.8, 97.2, 94.5, 95.8, 88.3, 92.1],
+                backgroundColor: function(context) {
+                    const value = context.parsed.y;
+                    if (value >= 95) return 'rgba(40, 167, 69, 0.8)';
+                    if (value >= 90) return 'rgba(255, 193, 7, 0.8)';
+                    return 'rgba(220, 53, 69, 0.8)';
+                },
+                borderColor: function(context) {
+                    const value = context.parsed.y;
+                    if (value >= 95) return 'rgba(40, 167, 69, 1)';
+                    if (value >= 90) return 'rgba(255, 193, 7, 1)';
+                    return 'rgba(220, 53, 69, 1)';
+                },
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.parsed.y}%`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: '成功率 (%)'
+                    }
+                }
+            }
+        }
+    });
+}
 
 // 初始化接管与异常升降级图表
 function initTakeoverChart() {
