@@ -16,24 +16,22 @@ const reportData = {
     creator: '张三'
 };
 
-// 异常数据
-const anomalyData = [
-    { name: '急刹顿挫', value: 2.1, level: 'medium' },
-    { name: '异常点刹', value: 1.8, level: 'low' },
-    { name: '二次起步', value: 3.5, level: 'medium' },
-    { name: '路线不合理', value: 2.7, level: 'medium' },
-    { name: '方向盘异常', value: 1.2, level: 'low' },
-    { name: '揉库超限', value: 4.3, level: 'high' },
-    { name: '时长超限', value: 3.9, level: 'medium' },
-    { name: '碰撞限位块', value: 0.5, level: 'low' }
+// 泊车异常数据
+const parkingAnomalyData = [
+    { name: '泊入、泊出急刹顿挫', value: 2.1 },
+    { name: '泊入、泊出异常点刹', value: 1.8 },
+    { name: '泊入、泊出二次起步', value: 3.5 },
+    { name: '泊入、泊出路线规划不合理', value: 2.7 },
+    { name: '泊入、泊出方向盘异常', value: 1.2 },
+    { name: '泊入、泊出揉库次数超限', value: 4.3 },
+    { name: '泊入、泊出泊车时长超限', value: 3.9 },
+    { name: '泊入、泊出碰撞限位块', value: 0.5 }
 ];
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initReportDetail();
-    initCharts();
-    generateAnomalyList();
-    calculateScores();
+    initParkingAnomalyChart();
 });
 
 // 初始化报告详情
@@ -100,205 +98,15 @@ function initReportDetail() {
     `;
 }
 
-// 初始化图表
-function initCharts() {
-    // 接管频率对比图
-    initTakeoverChart();
-    
-    // 变道成功率分析图
-    initLaneChangeChart();
-    
-    // 横向控制表现图
-    initLateralChart();
-    
-    // 泊车成功率图
-    initParkingSuccessChart();
-    
-    // 泊车异常分布图
-    initParkingAnomalyChart();
-}
-
-// 接管频率对比图
-function initTakeoverChart() {
-    const ctx = document.getElementById('takeoverChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['NOA接管', 'LCC接管', '异常升降级NOA', '异常升降级LCC'],
-            datasets: [{
-                label: '次/百公里',
-                data: [2.3, 1.8, 0.8, 0.5],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                borderWidth: 1,
-                borderRadius: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: '次/百公里'
-                    }
-                }
-            }
-        }
-    });
-}
-
-// 变道成功率分析图
-function initLaneChangeChart() {
-    const ctx = document.getElementById('laneChangeChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'radar',
-        data: {
-            labels: ['拨杆变道', '效率变道', '避障变道', '加塞', '变道超调'],
-            datasets: [{
-                label: '成功率 (%)',
-                data: [96.5, 94.2, 98.1, 89.7, 96.8],
-                backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                borderColor: 'rgba(102, 126, 234, 1)',
-                borderWidth: 2,
-                pointBackgroundColor: 'rgba(102, 126, 234, 1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(102, 126, 234, 1)'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                r: {
-                    beginAtZero: true,
-                    max: 100,
-                    ticks: {
-                        stepSize: 20
-                    }
-                }
-            }
-        }
-    });
-}
-
-// 横向控制表现图
-function initLateralChart() {
-    const ctx = document.getElementById('lateralChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['弯道通行成功', '弯道通行失败', '绕行避障成功', '绕行避障失败'],
-            datasets: [{
-                data: [97.8, 2.2, 95.6, 4.4],
-                backgroundColor: [
-                    '#28a745',
-                    '#dc3545',
-                    '#17a2b8',
-                    '#ffc107'
-                ],
-                borderWidth: 2,
-                borderColor: '#fff'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        padding: 10,
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
-
-// 泊车成功率图
-function initParkingSuccessChart() {
-    const ctx = document.getElementById('parkingSuccessChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['垂直泊入', '垂直泊出', '水平泊入', '水平泊出', '斜列泊入', '斜列泊出'],
-            datasets: [{
-                label: '成功率 (%)',
-                data: [96.8, 97.2, 94.5, 95.8, 88.3, 92.1],
-                backgroundColor: function(context) {
-                    const value = context.parsed.y;
-                    if (value >= 95) return 'rgba(40, 167, 69, 0.8)';
-                    if (value >= 90) return 'rgba(255, 193, 7, 0.8)';
-                    return 'rgba(220, 53, 69, 0.8)';
-                },
-                borderColor: function(context) {
-                    const value = context.parsed.y;
-                    if (value >= 95) return 'rgba(40, 167, 69, 1)';
-                    if (value >= 90) return 'rgba(255, 193, 7, 1)';
-                    return 'rgba(220, 53, 69, 1)';
-                },
-                borderWidth: 1,
-                borderRadius: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100,
-                    title: {
-                        display: true,
-                        text: '成功率 (%)'
-                    }
-                }
-            }
-        }
-    });
-}
-
-// 泊车异常分布图
+// 初始化泊车异常分布图
 function initParkingAnomalyChart() {
     const ctx = document.getElementById('parkingAnomalyChart').getContext('2d');
     new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: anomalyData.map(item => item.name),
+            labels: parkingAnomalyData.map(item => item.name),
             datasets: [{
-                data: anomalyData.map(item => item.value),
+                data: parkingAnomalyData.map(item => item.value),
                 backgroundColor: [
                     '#FF6384',
                     '#36A2EB',
@@ -320,34 +128,41 @@ function initParkingAnomalyChart() {
                 legend: {
                     position: 'right',
                     labels: {
-                        padding: 10,
+                        padding: 15,
                         font: {
-                            size: 11
+                            size: 12
+                        },
+                        generateLabels: function(chart) {
+                            const data = chart.data;
+                            if (data.labels.length && data.datasets.length) {
+                                return data.labels.map((label, i) => {
+                                    const value = data.datasets[0].data[i];
+                                    return {
+                                        text: `${label}: ${value}%`,
+                                        fillStyle: data.datasets[0].backgroundColor[i],
+                                        strokeStyle: data.datasets[0].borderColor,
+                                        lineWidth: data.datasets[0].borderWidth,
+                                        hidden: false,
+                                        index: i
+                                    };
+                                });
+                            }
+                            return [];
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            return `${label}: ${value}%`;
                         }
                     }
                 }
             }
         }
     });
-}
-
-// 生成异常列表
-function generateAnomalyList() {
-    const anomalyListContainer = document.getElementById('anomalyList');
-    
-    anomalyData.forEach(item => {
-        const anomalyItem = document.createElement('div');
-        anomalyItem.className = `anomaly-item ${item.level}`;
-        anomalyItem.innerHTML = `
-            <span>${item.name}</span>
-            <span class="anomaly-value ${item.level}">${item.value}%</span>
-        `;
-        anomalyListContainer.appendChild(anomalyItem);
-    });
-    
-    // 计算总异常率
-    const totalRate = (anomalyData.reduce((sum, item) => sum + item.value, 0) / anomalyData.length).toFixed(1);
-    document.getElementById('totalAnomalyRate').textContent = `${totalRate}%`;
 }
 
 // 返回列表页面

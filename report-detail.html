@@ -3,305 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>报告详情 - 路测报告管理系统</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>报告详情</title>
     <link rel="stylesheet" href="report-detail.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- 头部导航 -->
-        <header class="header">
-            <div class="header-content">
-                <button class="btn-back" onclick="goBack()">← 返回列表</button>
-                <h1>报告详情</h1>
-                <div class="report-id" id="reportId">RPT001</div>
-            </div>
-        </header>
+        <!-- 页面头部 -->
+        <div class="page-header">
+            <button class="back-btn" onclick="goBack()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m12 19-7-7 7-7"/>
+                    <path d="M19 12H5"/>
+                </svg>
+                返回列表
+            </button>
+            <h1>报告详情 - <span id="reportId">RPT001</span></h1>
+        </div>
 
-        <!-- 报告基本信息 -->
-        <section class="basic-info-section">
-            <div class="info-card">
-                <h3>基本信息</h3>
-                <div class="info-grid" id="basicInfoGrid">
-                    <!-- 基本信息将通过 JavaScript 动态填充 -->
-                </div>
+        <!-- 基本信息 -->
+        <div class="section">
+            <h2>基本信息</h2>
+            <div class="basic-info-grid" id="basicInfoGrid">
+                <!-- 基本信息将通过JavaScript填充 -->
             </div>
-        </section>
-
-        <!-- 指标概览 -->
-        <section class="overview-section">
-            <div class="overview-cards">
-                <div class="overview-card">
-                    <div class="overview-title">驾驶辅助</div>
-                    <div class="overview-value" id="assistScore">92.5</div>
-                    <div class="overview-unit">综合评分</div>
-                </div>
-                <div class="overview-card">
-                    <div class="overview-title">自动泊车</div>
-                    <div class="overview-value" id="parkingScore">88.3</div>
-                    <div class="overview-unit">综合评分</div>
-                </div>
-                <div class="overview-card">
-                    <div class="overview-title">异常事件</div>
-                    <div class="overview-value warning" id="anomalyCount">12</div>
-                    <div class="overview-unit">次</div>
-                </div>
-                <div class="overview-card">
-                    <div class="overview-title">测试里程</div>
-                    <div class="overview-value" id="totalMileage">1250.5</div>
-                    <div class="overview-unit">公里</div>
-                </div>
-            </div>
-        </section>
+        </div>
 
         <!-- 驾驶辅助指标 -->
-        <section class="metrics-section">
+        <div class="section">
             <h2>驾驶辅助指标</h2>
             
-            <!-- 接管指标 -->
-            <div class="metric-category">
-                <h3>接管指标</h3>
-                <div class="metric-charts">
-                    <div class="chart-container">
-                        <canvas id="takeoverChart"></canvas>
-                        <div class="chart-title">接管频率对比</div>
-                    </div>
-                    <div class="metric-cards">
-                        <div class="metric-card">
-                            <div class="metric-name">NOA接管</div>
-                            <div class="metric-value">2.3</div>
-                            <div class="metric-unit">次/百公里</div>
-                        </div>
-                        <div class="metric-card">
-                            <div class="metric-name">LCC接管</div>
-                            <div class="metric-value">1.8</div>
-                            <div class="metric-unit">次/百公里</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 变道指标 -->
-            <div class="metric-category">
-                <h3>变道指标</h3>
-                <div class="metric-charts">
-                    <div class="chart-container">
-                        <canvas id="laneChangeChart"></canvas>
-                        <div class="chart-title">变道成功率分析</div>
-                    </div>
-                    <div class="metric-grid">
-                        <div class="metric-card success">
-                            <div class="metric-name">拨杆变道成功率</div>
-                            <div class="metric-value">96.5%</div>
-                        </div>
-                        <div class="metric-card success">
-                            <div class="metric-name">效率变道成功率</div>
-                            <div class="metric-value">94.2%</div>
-                        </div>
-                        <div class="metric-card success">
-                            <div class="metric-name">避障变道成功率</div>
-                            <div class="metric-value">98.1%</div>
-                        </div>
-                        <div class="metric-card warning">
-                            <div class="metric-name">加塞成功率</div>
-                            <div class="metric-value">89.7%</div>
-                        </div>
-                        <div class="metric-card good">
-                            <div class="metric-name">变道超调率</div>
-                            <div class="metric-value">3.2%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 横向控制 -->
-            <div class="metric-category">
-                <h3>横向控制</h3>
-                <div class="metric-charts">
-                    <div class="chart-container">
-                        <canvas id="lateralChart"></canvas>
-                        <div class="chart-title">横向控制表现</div>
-                    </div>
-                    <div class="metric-cards">
-                        <div class="metric-card">
-                            <div class="metric-name">整体不居中</div>
-                            <div class="metric-value">1.5</div>
-                            <div class="metric-unit">次/百公里</div>
-                        </div>
-                        <div class="metric-card success">
-                            <div class="metric-name">弯道通行</div>
-                            <div class="metric-value">97.8%</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 纵向控制 -->
-            <div class="metric-category">
-                <h3>纵向控制</h3>
+            <!-- 接管 -->
+            <div class="metric-group">
+                <h3>接管</h3>
                 <div class="metric-grid">
-                    <div class="metric-card">
-                        <div class="metric-name">点刹</div>
-                        <div class="metric-value">4.2</div>
-                        <div class="metric-unit">次/百公里</div>
+                    <div class="metric-item">
+                        <span class="metric-label">NOA</span>
+                        <span class="metric-value">2.3次/百公里</span>
                     </div>
-                    <div class="metric-card warning">
-                        <div class="metric-name">应对切入失败</div>
-                        <div class="metric-value">0.8</div>
-                        <div class="metric-unit">次/百公里</div>
-                    </div>
-                    <div class="metric-card success">
-                        <div class="metric-name">巡航跟停</div>
-                        <div class="metric-value">99.2%</div>
-                    </div>
-                    <div class="metric-card success">
-                        <div class="metric-name">静止车刹停</div>
-                        <div class="metric-value">98.9%</div>
+                    <div class="metric-item">
+                        <span class="metric-label">LCC</span>
+                        <span class="metric-value">1.8次/百公里</span>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- 异常升降级 -->
+            <div class="metric-group">
+                <h3>异常升降级</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">NOA</span>
+                        <span class="metric-value">0.8次/百公里</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">LCC</span>
+                        <span class="metric-value">0.5次/百公里</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 变道 -->
+            <div class="metric-group">
+                <h3>变道</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">拨杆变道成功率</span>
+                        <span class="metric-value">96.5%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">效率变道成功率</span>
+                        <span class="metric-value">94.2%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">避障变道成功率</span>
+                        <span class="metric-value">98.1%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">加塞成功率</span>
+                        <span class="metric-value">89.7%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">变道超调率</span>
+                        <span class="metric-value">3.2%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 横向 -->
+            <div class="metric-group">
+                <h3>横向</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">整体不居中</span>
+                        <span class="metric-value">1.5次/百公里</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">弯道通行</span>
+                        <span class="metric-value">97.8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 绕行 -->
+            <div class="metric-group">
+                <h3>绕行</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">绕行避障</span>
+                        <span class="metric-value">95.6%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 纵向 -->
+            <div class="metric-group">
+                <h3>纵向</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">点刹</span>
+                        <span class="metric-value">2.1次/百公里</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">应对切入失败</span>
+                        <span class="metric-value">0.8次/百公里</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">巡航跟停</span>
+                        <span class="metric-value">98.5%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">静止车刹停</span>
+                        <span class="metric-value">97.2%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 匝道互通 -->
+            <div class="metric-group">
+                <h3>匝道互通</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">汇入主路</span>
+                        <span class="metric-value">94.8%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">匝道内行驶</span>
+                        <span class="metric-value">96.3%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">驶入匝道</span>
+                        <span class="metric-value">95.7%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 路口相关 -->
+            <div class="metric-group">
+                <h3>路口相关</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">路口直行</span>
+                        <span class="metric-value">96.9%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">红绿灯识别（GLC）</span>
+                        <span class="metric-value">98.7%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">M2N</span>
+                        <span class="metric-value">93.4%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 特殊场景 -->
+            <div class="metric-group">
+                <h3>特殊场景</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">施工场景识别率</span>
+                        <span class="metric-value">92.1%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">施工场景绕行成功率</span>
+                        <span class="metric-value">88.6%</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">违反交规</span>
+                        <span class="metric-value">0.3次/百公里</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- 自动泊车指标 -->
-        <section class="metrics-section">
+        <div class="section">
             <h2>自动泊车指标</h2>
             
-            <!-- 泊车成功率 -->
-            <div class="metric-category">
-                <h3>泊车成功率</h3>
-                <div class="metric-charts">
-                    <div class="chart-container">
-                        <canvas id="parkingSuccessChart"></canvas>
-                        <div class="chart-title">不同车位类型成功率</div>
+            <!-- 垂直车位 -->
+            <div class="metric-group">
+                <h3>垂直车位</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">泊入</span>
+                        <span class="metric-value">96.8%</span>
                     </div>
-                    <div class="parking-grid">
-                        <div class="parking-type">
-                            <h4>垂直车位</h4>
-                            <div class="parking-metrics">
-                                <div class="parking-metric">
-                                    <span>泊入</span>
-                                    <span class="success">96.8%</span>
-                                </div>
-                                <div class="parking-metric">
-                                    <span>泊出</span>
-                                    <span class="success">97.2%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="parking-type">
-                            <h4>水平车位</h4>
-                            <div class="parking-metrics">
-                                <div class="parking-metric">
-                                    <span>泊入</span>
-                                    <span class="success">94.5%</span>
-                                </div>
-                                <div class="parking-metric">
-                                    <span>泊出</span>
-                                    <span class="success">95.8%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="parking-type">
-                            <h4>斜列车位</h4>
-                            <div class="parking-metrics">
-                                <div class="parking-metric">
-                                    <span>泊入</span>
-                                    <span class="warning">88.3%</span>
-                                </div>
-                                <div class="parking-metric">
-                                    <span>泊出</span>
-                                    <span class="success">92.1%</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="metric-item">
+                        <span class="metric-label">泊出</span>
+                        <span class="metric-value">97.2%</span>
                     </div>
                 </div>
             </div>
 
-            <!-- 泊车异常分析 -->
-            <div class="metric-category">
-                <h3>泊车异常分析</h3>
-                <div class="anomaly-analysis-simple">
-                    <div class="chart-container">
-                        <canvas id="parkingAnomalyChart"></canvas>
-                        <div class="chart-title">异常类型分布</div>
+            <!-- 水平车位 -->
+            <div class="metric-group">
+                <h3>水平车位</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">泊入</span>
+                        <span class="metric-value">94.5%</span>
                     </div>
-                    <div class="anomaly-summary">
-                        <h4>异常统计</h4>
-                        <div class="anomaly-list" id="anomalyList">
-                            <!-- 异常列表将通过 JavaScript 生成 -->
-                        </div>
-                        <div class="anomaly-total">
-                            <strong>总异常率: <span id="totalAnomalyRate">2.4%</span></strong>
-                        </div>
+                    <div class="metric-item">
+                        <span class="metric-label">泊出</span>
+                        <span class="metric-value">95.8%</span>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- 特殊场景指标 -->
-        <section class="metrics-section">
-            <h2>特殊场景指标</h2>
-            <div class="special-scenarios">
-                <div class="scenario-grid">
-                    <div class="scenario-card">
-                        <h4>匝道互通</h4>
-                        <div class="scenario-metrics">
-                            <div class="scenario-metric">
-                                <span>汇入主路</span>
-                                <span class="success">96.3%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>匝道内行驶</span>
-                                <span class="success">97.5%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>驶入匝道</span>
-                                <span class="success">95.8%</span>
-                            </div>
-                        </div>
+            <!-- 斜列车位 -->
+            <div class="metric-group">
+                <h3>斜列车位</h3>
+                <div class="metric-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">泊入</span>
+                        <span class="metric-value">88.3%</span>
                     </div>
-                    <div class="scenario-card">
-                        <h4>路口相关</h4>
-                        <div class="scenario-metrics">
-                            <div class="scenario-metric">
-                                <span>路口直行</span>
-                                <span class="success">98.4%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>红绿灯识别</span>
-                                <span class="success">99.1%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>M2N</span>
-                                <span class="success">94.7%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="scenario-card">
-                        <h4>施工场景</h4>
-                        <div class="scenario-metrics">
-                            <div class="scenario-metric">
-                                <span>场景识别率</span>
-                                <span class="success">92.3%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>绕行成功率</span>
-                                <span class="warning">88.9%</span>
-                            </div>
-                            <div class="scenario-metric">
-                                <span>违反交规</span>
-                                <span class="good">0.3次/百公里</span>
-                            </div>
-                        </div>
+                    <div class="metric-item">
+                        <span class="metric-label">泊出</span>
+                        <span class="metric-value">92.1%</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- 泊车异常指标 -->
+        <div class="section">
+            <h2>泊车异常指标</h2>
+            <div class="chart-container">
+                <canvas id="parkingAnomalyChart"></canvas>
+            </div>
+        </div>
     </div>
 
-    <script src="score-calculation.js"></script>
     <script src="report-detail.js"></script>
 </body>
 </html>
