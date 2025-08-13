@@ -100,10 +100,10 @@ function initProblemAnalysisCharts() {
     new Chart(priorityCtx, {
         type: 'pie',
         data: {
-            labels: ['高', '中', '低'],
+            labels: ['P0', 'P1', 'P2', 'P3'],
             datasets: [{
-                data: [25, 50, 25],
-                backgroundColor: ['#dc3545', '#ffc107', '#28a745'],
+                data: [15, 25, 35, 25],
+                backgroundColor: ['#dc3545', '#fd7e14', '#ffc107', '#28a745'],
                 borderWidth: 2,
                 borderColor: '#fff'
             }]
