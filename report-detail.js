@@ -31,10 +31,126 @@ const parkingAnomalyData = [
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initReportDetail();
+    initProblemAnalysisCharts();
     initTakeoverChart();
     initParkingSuccessChart();
     initParkingAnomalyChart();
 });
+
+// 初始化问题分析统计图表
+function initProblemAnalysisCharts() {
+    // 问题大类分布
+    const categoryCtx = document.getElementById('problemCategoryChart').getContext('2d');
+    new Chart(categoryCtx, {
+        type: 'pie',
+        data: {
+            labels: ['功能异常', '性能问题', '安全隐患', '用户体验', '系统错误'],
+            datasets: [{
+                data: [35, 25, 20, 15, 5],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 8,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+
+    // 顶级功能分布
+    const functionCtx = document.getElementById('topFunctionChart').getContext('2d');
+    new Chart(functionCtx, {
+        type: 'pie',
+        data: {
+            labels: ['自动驾驶', '泊车辅助', '导航系统', '安全监控', '其他'],
+            datasets: [{
+                data: [40, 30, 15, 10, 5],
+                backgroundColor: ['#FF9F40', '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 8,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+
+    // 优先级分布
+    const priorityCtx = document.getElementById('priorityChart').getContext('2d');
+    new Chart(priorityCtx, {
+        type: 'pie',
+        data: {
+            labels: ['高', '中', '低'],
+            datasets: [{
+                data: [25, 50, 25],
+                backgroundColor: ['#dc3545', '#ffc107', '#28a745'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 8,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+
+    // 影响程度分布
+    const impactCtx = document.getElementById('impactChart').getContext('2d');
+    new Chart(impactCtx, {
+        type: 'pie',
+        data: {
+            labels: ['严重', '一般', '轻微'],
+            datasets: [{
+                data: [20, 45, 35],
+                backgroundColor: ['#e74c3c', '#f39c12', '#2ecc71'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 8,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+}
 
 // 初始化自动泊车成功率图表
 function initParkingSuccessChart() {

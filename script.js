@@ -88,7 +88,7 @@ function getLastWeekDates() {
 
 // 初始化图表
 function initCharts() {
-    // 不同测试版本任务分布饼图
+    // 版本-里程饼图
     const versionCtx = document.getElementById('versionChart').getContext('2d');
     new Chart(versionCtx, {
         type: 'doughnut',
@@ -126,7 +126,7 @@ function initCharts() {
         }
     });
 
-    // 不同功能模式任务分布饼图
+    // 功能-里程饼图
     const modeCtx = document.getElementById('modeChart').getContext('2d');
     new Chart(modeCtx, {
         type: 'doughnut',

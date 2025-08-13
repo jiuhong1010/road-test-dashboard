@@ -179,6 +179,55 @@ body {
     max-height: 100%;
 }
 
+/* 问题分析统计图表网格 */
+.problem-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.problem-chart-item {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.problem-chart-item h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.chart-container-small {
+    position: relative;
+    height: 200px;
+}
+
+.chart-container-small canvas {
+    max-height: 100%;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .problem-charts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .problem-charts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container-small {
+        height: 250px;
+    }
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .container {
