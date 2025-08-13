@@ -31,8 +31,63 @@ const parkingAnomalyData = [
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
     initReportDetail();
+    initTakeoverChart();
     initParkingAnomalyChart();
 });
+
+// 初始化接管与异常升降级图表
+function initTakeoverChart() {
+    const ctx = document.getElementById('takeoverChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['NOA接管', 'LCC接管', 'NOA异常升降级', 'LCC异常升降级'],
+            datasets: [{
+                label: '次/百公里',
+                data: [2.3, 1.8, 0.8, 0.5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.label}: ${context.parsed.y}次/百公里`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: '次/百公里'
+                    }
+                }
+            }
+        }
+    });
+}
 
 // 初始化报告详情
 function initReportDetail() {

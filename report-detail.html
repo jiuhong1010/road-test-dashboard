@@ -33,33 +33,11 @@
         <div class="section">
             <h2>驾驶辅助指标</h2>
             
-            <!-- 接管 -->
+            <!-- 接管与异常升降级 -->
             <div class="metric-group">
-                <h3>接管</h3>
-                <div class="metric-grid">
-                    <div class="metric-item">
-                        <span class="metric-label">NOA</span>
-                        <span class="metric-value">2.3次/百公里</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">LCC</span>
-                        <span class="metric-value">1.8次/百公里</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 异常升降级 -->
-            <div class="metric-group">
-                <h3>异常升降级</h3>
-                <div class="metric-grid">
-                    <div class="metric-item">
-                        <span class="metric-label">NOA</span>
-                        <span class="metric-value">0.8次/百公里</span>
-                    </div>
-                    <div class="metric-item">
-                        <span class="metric-label">LCC</span>
-                        <span class="metric-value">0.5次/百公里</span>
-                    </div>
+                <h3>接管与异常升降级</h3>
+                <div class="chart-container">
+                    <canvas id="takeoverChart"></canvas>
                 </div>
             </div>
 
