@@ -1,0 +1,433 @@
+/* 报告详情页面专用样式 */
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.btn-back {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-back:hover {
+    background: #5a6fd8;
+}
+
+.report-id {
+    background: #f8f9fa;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #495057;
+}
+
+/* 基本信息区域 */
+.basic-info-section {
+    margin: 20px 0;
+}
+
+.info-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.info-label {
+    font-size: 12px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.info-value {
+    font-size: 14px;
+    color: #212529;
+    font-weight: 600;
+}
+
+/* 概览卡片 */
+.overview-section {
+    margin: 30px 0;
+}
+
+.overview-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.overview-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.overview-card:hover {
+    transform: translateY(-2px);
+}
+
+.overview-title {
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 8px;
+}
+
+.overview-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 4px;
+}
+
+.overview-value.warning {
+    color: #ffc107;
+}
+
+.overview-unit {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* 指标区域 */
+.metrics-section {
+    margin: 40px 0;
+}
+
+.metrics-section h2 {
+    color: #212529;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.metric-category {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metric-category h3 {
+    color: #495057;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.metric-charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+.chart-title {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.metric-cards, .metric-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.metric-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 16px;
+    border-left: 4px solid #dee2e6;
+    transition: all 0.3s;
+}
+
+.metric-card:hover {
+    background: #e9ecef;
+    transform: translateX(4px);
+}
+
+.metric-card.success {
+    border-left-color: #28a745;
+    background: #d4edda;
+}
+
+.metric-card.warning {
+    border-left-color: #ffc107;
+    background: #fff3cd;
+}
+
+.metric-card.good {
+    border-left-color: #17a2b8;
+    background: #d1ecf1;
+}
+
+.metric-name {
+    font-size: 14px;
+    color: #495057;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #212529;
+}
+
+.metric-unit {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+/* 泊车指标特殊样式 */
+.parking-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.parking-type {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.parking-type h4 {
+    color: #495057;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.parking-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.parking-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.parking-metric .success {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.parking-metric .warning {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+/* 异常分析 */
+.anomaly-analysis {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.anomaly-heatmap {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.heatmap-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    padding: 4px;
+    line-height: 1.2;
+}
+
+.heatmap-cell.low {
+    background: #28a745;
+}
+
+.heatmap-cell.medium {
+    background: #ffc107;
+    color: #212529;
+}
+
+.heatmap-cell.high {
+    background: #dc3545;
+}
+
+.heatmap-legend {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+}
+
+.legend-item {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+}
+
+.legend-item.low {
+    background: #28a745;
+}
+
+.legend-item.medium {
+    background: #ffc107;
+    color: #212529;
+}
+
+.legend-item.high {
+    background: #dc3545;
+}
+
+/* 特殊场景 */
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.scenario-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.scenario-card h4 {
+    color: #495057;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.scenario-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.scenario-metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.scenario-metric .success {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.scenario-metric .warning {
+    color: #ffc107;
+    font-weight: 600;
+}
+
+.scenario-metric .good {
+    color: #17a2b8;
+    font-weight: 600;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+    
+    .metric-charts {
+        grid-template-columns: 1fr;
+    }
+    
+    .anomaly-analysis {
+        grid-template-columns: 1fr;
+    }
+    
+    .overview-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .heatmap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .heatmap-legend {
+        flex-direction: column;
+    }
+}
