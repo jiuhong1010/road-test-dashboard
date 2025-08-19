@@ -32,18 +32,30 @@ body {
     font-weight: 600;
 }
 
-/* 统计概况区域 */
-.stats-section {
-    margin-bottom: 30px;
+/* 数据统计容器 */
+.stats-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+/* 报告管理容器 */
+.reports-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
 }
 
 /* 时间筛选器样式 */
 .time-filter-container {
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
+    padding: 0 0 20px 0;
     margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .time-filter-header {
@@ -227,11 +239,7 @@ body {
 }
 
 .filter-container {
-    background: white;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e1e8ed;
+    padding: 0 0 20px 0;
 }
 
 .filter-container h3 {

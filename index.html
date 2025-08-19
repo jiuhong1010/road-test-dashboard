@@ -14,8 +14,8 @@
             <h1>数据统计 - 路测报告</h1>
         </header>
 
-        <!-- 统计概况区域 -->
-        <section class="stats-section">
+        <!-- 数据统计容器 -->
+        <section class="stats-container">
             <!-- 时间筛选器 -->
             <div class="time-filter-container">
                 <div class="time-filter-header">
@@ -29,15 +29,6 @@
                     <div class="time-filter-item">
                         <label>结束时间</label>
                         <input type="date" id="statsEndDate" onchange="updateStatsData()">
-                    </div>
-                    <div class="time-filter-item">
-                        <label>快速选择</label>
-                        <select id="quickTimeSelect" onchange="applyQuickTimeFilter()">
-                            <option value="7">最近7天</option>
-                            <option value="30">最近30天</option>
-                            <option value="90">最近90天</option>
-                            <option value="365">最近一年</option>
-                        </select>
                     </div>
                     <div class="time-filter-actions">
                         <button class="btn-filter" onclick="updateStatsData()">应用筛选</button>
@@ -73,8 +64,8 @@
             </div>
         </section>
 
-        <!-- 筛选器区域 -->
-        <section class="filter-section">
+        <!-- 报告管理容器 -->
+        <section class="reports-container">
             <div class="filter-container">
                 <h3>报告列表筛选器</h3>
                 <div class="filter-grid">
@@ -151,10 +142,7 @@
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- 报告列表区域 -->
-        <section class="table-section">
             <div class="table-header">
                 <h3>报告列表</h3>
                 <button class="btn-primary" onclick="openNewReportModal()">新增报告</button>

@@ -150,6 +150,45 @@ function initProblemAnalysisCharts() {
             }
         }
     });
+
+    // ODD分布
+    const oddCtx = document.getElementById('oddChart').getContext('2d');
+    new Chart(oddCtx, {
+        type: 'pie',
+        data: {
+            labels: ['ODD内', 'ODD外'],
+            datasets: [{
+                data: [75, 25],
+                backgroundColor: ['#17a2b8', '#6c757d'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 8,
+                        font: { size: 10 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const label = context.label || '';
+                            const value = context.parsed;
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((value / total) * 100).toFixed(1);
+                            return `${label}: ${percentage}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // 初始化自动泊车成功率图表

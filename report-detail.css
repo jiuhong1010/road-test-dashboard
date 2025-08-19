@@ -182,29 +182,29 @@ body {
 /* 问题分析统计图表网格 */
 .problem-charts-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
     margin: 20px 0;
 }
 
 .problem-chart-item {
     background: #f8fafc;
     border-radius: 8px;
-    padding: 16px;
+    padding: 12px;
     border: 1px solid #e2e8f0;
 }
 
 .problem-chart-item h3 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #475569;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     text-align: center;
 }
 
 .chart-container-small {
     position: relative;
-    height: 200px;
+    height: 160px;
 }
 
 .chart-container-small canvas {

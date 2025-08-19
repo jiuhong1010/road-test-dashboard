@@ -559,16 +559,12 @@ function initTimeFilter() {
     
     document.getElementById('statsStartDate').value = formatDate(sevenDaysAgo);
     document.getElementById('statsEndDate').value = formatDate(today);
-    document.getElementById('quickTimeSelect').value = '7';
 }
 
-// 应用快速时间筛选
-function applyQuickTimeFilter() {
-    const quickSelect = document.getElementById('quickTimeSelect');
-    const days = parseInt(quickSelect.value);
-    
+// 重置时间筛选器
+function resetTimeFilter() {
     const today = new Date();
-    const startDate = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
+    const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
     
     const formatDate = (date) => {
         const year = date.getFullYear();
@@ -577,16 +573,10 @@ function applyQuickTimeFilter() {
         return `${year}-${month}-${day}`;
     };
     
-    document.getElementById('statsStartDate').value = formatDate(startDate);
+    document.getElementById('statsStartDate').value = formatDate(sevenDaysAgo);
     document.getElementById('statsEndDate').value = formatDate(today);
     
     updateStatsData();
-}
-
-// 重置时间筛选器
-function resetTimeFilter() {
-    document.getElementById('quickTimeSelect').value = '7';
-    applyQuickTimeFilter();
 }
 
 // 更新统计数据
@@ -631,16 +621,19 @@ function initChartsWithTimeRange(startDate, endDate) {
         window.versionChart.destroy();
     }
     
+    // 生成随机数据，确保每次都不同
+    const versionData = [
+        Math.floor(Math.random() * 50 + 20), // v1.0: 20-70
+        Math.floor(Math.random() * 60 + 25), // v1.1: 25-85  
+        Math.floor(Math.random() * 70 + 30)  // v2.0: 30-100
+    ];
+    
     window.versionChart = new Chart(versionCtx, {
         type: 'doughnut',
         data: {
             labels: ['v1.0', 'v1.1', 'v2.0'],
             datasets: [{
-                data: [
-                    Math.floor(daysDiff * 0.8 + Math.random() * 20),
-                    Math.floor(daysDiff * 1.2 + Math.random() * 30),
-                    Math.floor(daysDiff * 1.5 + Math.random() * 40)
-                ],
+                data: versionData,
                 backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
                 borderWidth: 2,
                 borderColor: '#fff'
@@ -657,6 +650,9 @@ function initChartsWithTimeRange(startDate, endDate) {
                         padding: 10,
                         font: { size: 12 }
                     }
+                },
+                tooltip: {
+                    enabled: true
                 }
             },
             onClick: function() { return false; }
@@ -670,16 +666,19 @@ function initChartsWithTimeRange(startDate, endDate) {
         window.modeChart.destroy();
     }
     
+    // 生成随机数据，确保每次都不同
+    const modeData = [
+        Math.floor(Math.random() * 60 + 30), // 自动驾驶: 30-90
+        Math.floor(Math.random() * 50 + 20), // 路径规划: 20-70
+        Math.floor(Math.random() * 40 + 15)  // 安全系统: 15-55
+    ];
+    
     window.modeChart = new Chart(modeCtx, {
         type: 'doughnut',
         data: {
             labels: ['自动驾驶', '路径规划', '安全系统'],
             datasets: [{
-                data: [
-                    Math.floor(daysDiff * 1.8 + Math.random() * 50),
-                    Math.floor(daysDiff * 1.2 + Math.random() * 30),
-                    Math.floor(daysDiff * 1.0 + Math.random() * 25)
-                ],
+                data: modeData,
                 backgroundColor: ['#4BC0C0', '#9966FF', '#FF9F40'],
                 borderWidth: 2,
                 borderColor: '#fff'
@@ -696,6 +695,9 @@ function initChartsWithTimeRange(startDate, endDate) {
                         padding: 10,
                         font: { size: 12 }
                     }
+                },
+                tooltip: {
+                    enabled: true
                 }
             },
             onClick: function() { return false; }
@@ -715,13 +717,10 @@ function initChartsWithTimeRange(startDate, endDate) {
     const start = new Date(startDate);
     const end = new Date(endDate);
     
-    // 如果时间范围超过30天，只显示最近30天
-    const displayDays = Math.min(daysDiff, 30);
-    const displayStart = daysDiff > 30 ? new Date(end.getTime() - 29 * 24 * 60 * 60 * 1000) : start;
-    
-    for (let d = new Date(displayStart); d <= end; d.setDate(d.getDate() + 1)) {
+    // 生成每一天的数据
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
         dates.push(d.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }));
-        mileageData.push(Math.floor(800 + Math.random() * 1000)); // 模拟数据
+        mileageData.push(Math.floor(Math.random() * 1000 + 800)); // 800-1800km随机数据
     }
     
     window.dailyChart = new Chart(dailyCtx, {
@@ -751,7 +750,11 @@ function initChartsWithTimeRange(startDate, endDate) {
                 },
                 x: {
                     grid: { display: false },
-                    ticks: { font: { size: 12 } }
+                    ticks: { 
+                        font: { size: 12 },
+                        maxRotation: 45,
+                        minRotation: 0
+                    }
                 }
             }
         }
