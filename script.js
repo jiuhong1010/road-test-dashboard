@@ -567,8 +567,6 @@ function applyQuickTimeFilter() {
     const quickSelect = document.getElementById('quickTimeSelect');
     const days = parseInt(quickSelect.value);
     
-    if (!days) return;
-    
     const today = new Date();
     const startDate = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
     
