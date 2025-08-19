@@ -544,8 +544,265 @@ window.onclick = function(event) {
     }
 }
 
+// 初始化时间筛选器
+function initTimeFilter() {
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+    
+    // 格式化为 YYYY-MM-DD 格式
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    
+    document.getElementById('statsStartDate').value = formatDate(thirtyDaysAgo);
+    document.getElementById('statsEndDate').value = formatDate(today);
+    document.getElementById('quickTimeSelect').value = '30';
+}
+
+// 应用快速时间筛选
+function applyQuickTimeFilter() {
+    const quickSelect = document.getElementById('quickTimeSelect');
+    const days = parseInt(quickSelect.value);
+    
+    if (!days) return;
+    
+    const today = new Date();
+    const startDate = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
+    
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+    
+    document.getElementById('statsStartDate').value = formatDate(startDate);
+    document.getElementById('statsEndDate').value = formatDate(today);
+    
+    updateStatsData();
+}
+
+// 重置时间筛选器
+function resetTimeFilter() {
+    document.getElementById('quickTimeSelect').value = '30';
+    applyQuickTimeFilter();
+}
+
+// 更新统计数据
+function updateStatsData() {
+    const startDate = document.getElementById('statsStartDate').value;
+    const endDate = document.getElementById('statsEndDate').value;
+    
+    if (!startDate || !endDate) {
+        alert('请选择完整的时间范围');
+        return;
+    }
+    
+    if (new Date(startDate) > new Date(endDate)) {
+        alert('开始时间不能晚于结束时间');
+        return;
+    }
+    
+    // 根据时间范围计算天数差
+    const daysDiff = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) + 1;
+    
+    // 更新测试任务数
+    const taskCount = Math.floor(daysDiff * 30 + Math.random() * 200); // 模拟数据
+    document.querySelector('.stat-number').textContent = taskCount;
+    
+    // 重新初始化图表（使用新的时间范围数据）
+    initChartsWithTimeRange(startDate, endDate);
+    
+    // 显示更新提示
+    showUpdateNotification(`已更新 ${startDate} 至 ${endDate} 的统计数据`);
+}
+
+// 根据时间范围初始化图表
+function initChartsWithTimeRange(startDate, endDate) {
+    // 计算时间范围内的数据
+    const daysDiff = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) + 1;
+    
+    // 版本-里程饼图（根据时间范围调整数据）
+    const versionCtx = document.getElementById('versionChart').getContext('2d');
+    
+    // 清除现有图表
+    if (window.versionChart) {
+        window.versionChart.destroy();
+    }
+    
+    window.versionChart = new Chart(versionCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['v1.0', 'v1.1', 'v2.0'],
+            datasets: [{
+                data: [
+                    Math.floor(daysDiff * 0.8 + Math.random() * 20),
+                    Math.floor(daysDiff * 1.2 + Math.random() * 30),
+                    Math.floor(daysDiff * 1.5 + Math.random() * 40)
+                ],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 10,
+                        font: { size: 12 }
+                    }
+                }
+            },
+            onClick: function() { return false; }
+        }
+    });
+
+    // 功能-里程饼图
+    const modeCtx = document.getElementById('modeChart').getContext('2d');
+    
+    if (window.modeChart) {
+        window.modeChart.destroy();
+    }
+    
+    window.modeChart = new Chart(modeCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['自动驾驶', '路径规划', '安全系统'],
+            datasets: [{
+                data: [
+                    Math.floor(daysDiff * 1.8 + Math.random() * 50),
+                    Math.floor(daysDiff * 1.2 + Math.random() * 30),
+                    Math.floor(daysDiff * 1.0 + Math.random() * 25)
+                ],
+                backgroundColor: ['#4BC0C0', '#9966FF', '#FF9F40'],
+                borderWidth: 2,
+                borderColor: '#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        padding: 10,
+                        font: { size: 12 }
+                    }
+                }
+            },
+            onClick: function() { return false; }
+        }
+    });
+
+    // 每日测试里程柱状图
+    const dailyCtx = document.getElementById('dailyMileageChart').getContext('2d');
+    
+    if (window.dailyChart) {
+        window.dailyChart.destroy();
+    }
+    
+    // 生成时间范围内的日期标签和数据
+    const dates = [];
+    const mileageData = [];
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    // 如果时间范围超过30天，只显示最近30天
+    const displayDays = Math.min(daysDiff, 30);
+    const displayStart = daysDiff > 30 ? new Date(end.getTime() - 29 * 24 * 60 * 60 * 1000) : start;
+    
+    for (let d = new Date(displayStart); d <= end; d.setDate(d.getDate() + 1)) {
+        dates.push(d.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' }));
+        mileageData.push(Math.floor(800 + Math.random() * 1000)); // 模拟数据
+    }
+    
+    window.dailyChart = new Chart(dailyCtx, {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: '测试里程 (km)',
+                data: mileageData,
+                backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                borderColor: 'rgba(102, 126, 234, 1)',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                    ticks: { font: { size: 12 } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 12 } }
+                }
+            }
+        }
+    });
+}
+
+// 显示更新通知
+function showUpdateNotification(message) {
+    // 创建通知元素
+    const notification = document.createElement('div');
+    notification.className = 'update-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+        font-size: 14px;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // 显示动画
+    setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // 3秒后自动消失
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
+    initTimeFilter();
     initCharts();
     renderReportTable();
 });

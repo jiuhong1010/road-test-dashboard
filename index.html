@@ -16,6 +16,37 @@
 
         <!-- 统计概况区域 -->
         <section class="stats-section">
+            <!-- 时间筛选器 -->
+            <div class="time-filter-container">
+                <div class="time-filter-header">
+                    <h3>数据统计时间范围</h3>
+                </div>
+                <div class="time-filter-controls">
+                    <div class="time-filter-item">
+                        <label>开始时间</label>
+                        <input type="date" id="statsStartDate" onchange="updateStatsData()">
+                    </div>
+                    <div class="time-filter-item">
+                        <label>结束时间</label>
+                        <input type="date" id="statsEndDate" onchange="updateStatsData()">
+                    </div>
+                    <div class="time-filter-item">
+                        <label>快速选择</label>
+                        <select id="quickTimeSelect" onchange="applyQuickTimeFilter()">
+                            <option value="">自定义</option>
+                            <option value="7">最近7天</option>
+                            <option value="30">最近30天</option>
+                            <option value="90">最近90天</option>
+                            <option value="365">最近一年</option>
+                        </select>
+                    </div>
+                    <div class="time-filter-actions">
+                        <button class="btn-filter" onclick="updateStatsData()">应用筛选</button>
+                        <button class="btn-reset" onclick="resetTimeFilter()">重置</button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="stats-grid">
                 <!-- 测试任务数 -->
                 <div class="stat-card">

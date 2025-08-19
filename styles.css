@@ -37,6 +37,124 @@ body {
     margin-bottom: 30px;
 }
 
+/* 时间筛选器样式 */
+.time-filter-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.time-filter-header {
+    margin-bottom: 15px;
+}
+
+.time-filter-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.time-filter-controls {
+    display: flex;
+    align-items: end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.time-filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.time-filter-item label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+}
+
+.time-filter-item input[type="date"],
+.time-filter-item select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 140px;
+    background: white;
+}
+
+.time-filter-item input[type="date"]:focus,
+.time-filter-item select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.time-filter-actions {
+    display: flex;
+    gap: 10px;
+    align-items: end;
+}
+
+.time-filter-actions .btn-filter,
+.time-filter-actions .btn-reset {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-filter-actions .btn-filter {
+    background: #667eea;
+    color: white;
+}
+
+.time-filter-actions .btn-filter:hover {
+    background: #5a6fd8;
+}
+
+.time-filter-actions .btn-reset {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.time-filter-actions .btn-reset:hover {
+    background: #e9ecef;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .time-filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .time-filter-item {
+        width: 100%;
+    }
+    
+    .time-filter-item input[type="date"],
+    .time-filter-item select {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .time-filter-actions {
+        justify-content: stretch;
+    }
+    
+    .time-filter-actions .btn-filter,
+    .time-filter-actions .btn-reset {
+        flex: 1;
+    }
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: 200px 200px 200px 1fr;
