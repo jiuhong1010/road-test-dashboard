@@ -547,7 +547,7 @@ window.onclick = function(event) {
 // 初始化时间筛选器
 function initTimeFilter() {
     const today = new Date();
-    const thirtyDaysAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const sevenDaysAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
     
     // 格式化为 YYYY-MM-DD 格式
     const formatDate = (date) => {
@@ -557,9 +557,9 @@ function initTimeFilter() {
         return `${year}-${month}-${day}`;
     };
     
-    document.getElementById('statsStartDate').value = formatDate(thirtyDaysAgo);
+    document.getElementById('statsStartDate').value = formatDate(sevenDaysAgo);
     document.getElementById('statsEndDate').value = formatDate(today);
-    document.getElementById('quickTimeSelect').value = '30';
+    document.getElementById('quickTimeSelect').value = '7';
 }
 
 // 应用快速时间筛选
@@ -585,7 +585,7 @@ function applyQuickTimeFilter() {
 
 // 重置时间筛选器
 function resetTimeFilter() {
-    document.getElementById('quickTimeSelect').value = '30';
+    document.getElementById('quickTimeSelect').value = '7';
     applyQuickTimeFilter();
 }
 
